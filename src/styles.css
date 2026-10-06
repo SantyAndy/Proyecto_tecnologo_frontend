@@ -1,0 +1,314 @@
+/* ============================================================
+   Agroindustria Cafetera — Sistema de diseño global
+   Paleta verde cafetera + animaciones + componentes base
+   ============================================================ */
+
+@import 'tailwindcss';
+
+/* ---------- Tokens de la paleta (tomada del manual) ---------- */
+:root {
+  --verde-header: #2fa94a;   /* navbar brillante */
+  --verde-header-2: #1f8f3a;
+  --verde-primary: #2e7d32;  /* botones principales */
+  --verde-primary-dark: #1b5e20;
+  --verde-hero: #143a22;     /* fondos oscuros (login / hero) */
+  --verde-hero-2: #0d2a18;
+  --verde-soft: #e8f3ea;     /* fondos suaves de cards */
+  --verde-accent: #6dbf73;
+  --rojo: #e53935;           /* cerrar sesión / crear finca */
+  --rojo-dark: #c62828;
+  --crema: #f6f8f3;          /* fondo general */
+  --texto: #1f2a24;
+  --texto-suave: #5b6b61;
+  --borde: #e2e8e2;
+  --sombra: 0 10px 30px -12px rgba(20, 58, 34, .25);
+}
+
+/* ---------- Ionic: colores de la marca para sus componentes ---------- */
+:root {
+  --ion-color-primary: #2e7d32;
+  --ion-color-primary-rgb: 46, 125, 50;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #1b5e20;
+  --ion-color-primary-tint: #43a047;
+  --ion-color-danger: #e53935;
+  --ion-font-family: inherit;
+}
+
+/* ---------- App instalada (PWA / Capacitor): respetar el notch ---------- */
+.nav-wrap, .topbar { padding-top: env(safe-area-inset-top, 0px); }
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--texto);
+  background: var(--crema);
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, .font-display {
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+/* ============================================================
+   Tablas responsivas (toda la app)
+   Las celdas no se parten -> la tabla se ensancha -> scroll horizontal
+   suave en móvil, en vez de columnas apiñadas/cortadas.
+   ============================================================ */
+.overflow-x-auto { -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+.overflow-x-auto::-webkit-scrollbar { height: 8px; }
+.overflow-x-auto::-webkit-scrollbar-thumb { background: var(--verde-accent); border-radius: 8px; }
+.overflow-x-auto table th, .overflow-x-auto table td { white-space: nowrap; }
+@media (max-width: 640px) {
+  .overflow-x-auto table { font-size: .8rem; }
+  .overflow-x-auto table th, .overflow-x-auto table td { padding-left: .55rem; padding-right: .55rem; }
+}
+
+/* Scrollbar verde */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--verde-soft); }
+::-webkit-scrollbar-thumb {
+  background: var(--verde-accent);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--verde-primary); }
+
+/* ============================================================
+   Botones
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .7rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  font-size: .95rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s, background .25s, filter .2s;
+  will-change: transform;
+}
+.btn:active { transform: scale(.96); }
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, var(--verde-primary), var(--verde-primary-dark));
+  box-shadow: 0 8px 20px -8px rgba(46,125,50,.7);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 26px -8px rgba(46,125,50,.8);
+  filter: brightness(1.07);
+}
+
+.btn-danger {
+  color: #fff;
+  background: linear-gradient(135deg, var(--rojo), var(--rojo-dark));
+  box-shadow: 0 8px 20px -8px rgba(229,57,53,.7);
+}
+.btn-danger:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 26px -8px rgba(229,57,53,.8);
+  filter: brightness(1.07);
+}
+
+.btn-outline {
+  color: var(--verde-primary);
+  background: transparent;
+  border: 2px solid var(--verde-primary);
+}
+.btn-outline:hover {
+  background: var(--verde-primary);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.btn-ghost {
+  color: #fff;
+  background: rgba(255,255,255,.16);
+  backdrop-filter: blur(4px);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.28); }
+
+/* ============================================================
+   Cards
+   ============================================================ */
+.card {
+  background: #fff;
+  border-radius: 1.25rem;
+  box-shadow: var(--sombra);
+  border: 1px solid var(--borde);
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s;
+}
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 44px -18px rgba(20,58,34,.4);
+}
+
+/* Icono circular */
+.icon-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--verde-soft);
+  color: var(--verde-primary);
+  transition: transform .35s, background .35s, color .35s;
+}
+.card-hover:hover .icon-badge {
+  background: var(--verde-primary);
+  color: #fff;
+  transform: rotate(-6deg) scale(1.08);
+}
+
+/* Inputs */
+.field {
+  width: 100%;
+  padding: .8rem 1.1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--borde);
+  background: #fff;
+  font-size: .95rem;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+}
+.field:focus {
+  border-color: var(--verde-primary);
+  box-shadow: 0 0 0 4px rgba(46,125,50,.15);
+}
+.field-area { border-radius: 1.2rem; resize: vertical; min-height: 120px; }
+
+/* ============================================================
+   Animaciones
+   ============================================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-14px); }
+}
+@keyframes pop {
+  0%   { transform: scale(.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.anim-fade-up   { animation: fadeUp .7s both; }
+.anim-fade-in   { animation: fadeIn .8s both; }
+.anim-pop       { animation: pop .5s cubic-bezier(.34,1.56,.64,1) both; }
+.anim-slide-down{ animation: slideDown .35s ease both; }
+.anim-float     { animation: float 6s ease-in-out infinite; }
+
+/* delays escalonados */
+.d-1 { animation-delay: .1s; }
+.d-2 { animation-delay: .2s; }
+.d-3 { animation-delay: .3s; }
+.d-4 { animation-delay: .4s; }
+.d-5 { animation-delay: .5s; }
+.d-6 { animation-delay: .6s; }
+
+/* Reveal on scroll (directiva appReveal) */
+.reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity .7s ease, transform .7s cubic-bezier(.22,1,.36,1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* Utilidades de fondo */
+.bg-hero-coffee {
+  background:
+    linear-gradient(135deg, rgba(13,42,24,.88), rgba(20,58,34,.62)),
+    url("/img/imagen_index.png");
+  background-size: cover;
+  background-position: center;
+}
+.bg-auth-leaf {
+  background:
+    linear-gradient(160deg, rgba(13,42,24,.86), rgba(13,42,24,.92)),
+    url("/img/login.png");
+  background-size: cover;
+  background-position: center;
+}
+
+/* ============================================================
+   Animación de TÍTULOS principales (experiencia premium)
+   ============================================================ */
+
+/* Títulos sobre fondo oscuro: barrido de brillo continuo */
+.hero-title {
+  background: linear-gradient(110deg, #ffffff 30%, var(--verde-accent) 50%, #ffffff 70%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: sheen 5s linear infinite, fadeUp .8s both;
+}
+@keyframes sheen { to { background-position: -220% 0; } }
+
+/* Títulos de sección (verdes): subrayado que se dibuja al entrar en pantalla */
+.section-title {
+  position: relative;
+  display: inline-block;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  height: 5px;
+  width: 0;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--verde-accent), var(--verde-primary));
+  transition: width .9s cubic-bezier(.22,1,.36,1) .25s;
+}
+.section-title.is-visible::after { width: 72%; }
+.section-title.text-center::after { left: 50%; transform: translateX(-50%); }
+
+/* Palabra resaltada con leve resorte */
+.title-pop { display: inline-block; animation: pop .6s cubic-bezier(.34,1.56,.64,1) both; }
+.bg-leaf-dark {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(45,125,50,.25), transparent 45%),
+    linear-gradient(160deg, var(--verde-hero), var(--verde-hero-2));
+}
+
+/* Marca de agua texto */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(255,255,255,.35);
+  color: transparent;
+}

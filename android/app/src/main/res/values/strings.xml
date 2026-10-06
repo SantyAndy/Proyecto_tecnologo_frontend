@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Café Monitor</string>
+    <string name="title_activity_main">Café Monitor</string>
+    <string name="package_name">co.edu.fet.cafemonitor</string>
+    <string name="custom_url_scheme">co.edu.fet.cafemonitor</string>
+</resources>
